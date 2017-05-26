@@ -20,19 +20,19 @@ class RenderController extends Controller
         $document = $this->getDoctrine()->getRepository('AppBundle:Document')->find($id);
         $jsonEncoder = new JsonEncoder();
         $elements = $jsonEncoder->decode($document->getJson(), 'json');
-        $ls = $this->getParameter('templates_dir') . $id . '.docx';
 
-        $template = new TemplateProcessor($this->getParameter('templates_dir') . $id . '.docx');
-        $template->setValue('test', 'myvalue');
-        $template->saveAs($this->getParameter('temp_dir') . $id . '_' . microtime() * rand() . '.docx');
-
-        return $this->render('document/view.html.twig', array('page_title' => "Перегляд документу", 'document' => $document, 'elements' => $elements, 'debug' => $ls));
+        return $this->render('document/view.html.twig', array(
+            'page_title' => "Перегляд документу",
+            'document' => $document,
+            'elements' => $elements,
+            'templateUploaded' => $document->isTemplateUploaded($this->getParameter('templates_dir'))
+            ));
     }
 
     /**
      * @Route("/view/generated/{id}.jpg", name="generate_jpg", requirements={"id": "\d+"})
      */
-    public function generateJpg($id) {
+    public function generateJpgAction($id) {
         $request = Request::createFromGlobals();
         $generatedDocx = $this->formDocument($id, $request);
         $response = $this->convertToJPG($this->getParameter('temp_dir') . $generatedDocx . '.docx');

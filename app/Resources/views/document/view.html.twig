@@ -1,112 +1,31 @@
 {% extends 'document/index.html.twig' %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="/public/js/document/view.js"></script>
+    <script defer src="/public/js/document/view.js"></script>
+    <script>
+        var id = {{ document.id }};
+    </script>
 {% endblock %}
 
 {% block content %}
     <section class="row">
-        {{ debug }}
         <div class="small-12 column">
             <div class="callout clearfix margin-info">
                 <h5 class="callout cabinet small margins min">
                     <span>{{ document.name }}</span>
                 </h5>
                 <div class="small-12 column">
-                    {% for element in elements %}
-
-                        {% if element.type == 'text' %}
-                            <label for="{{ element.type }}-{{ loop.index }}">
-                                {{ element.label }}
-                                <input type="text"
-                                       id="{{ element.type }}-{{ loop.index }}"
-                                       name="{{ element.name }}"
-                                >
-                            </label>
-                        {% endif %}
-
-                        {% if element.type == 'number' %}
-                            <label for="{{ element.type }}-{{ loop.index }}">
-                                {{ element.label }}
-                                <input type="number"
-                                       id="{{ element.type }}-{{ loop.index }}"
-                                       name="{{ element.name }}">
-                            </label>
-                        {% endif %}
-
-                        {% if element.type == 'textarea' %}
-                            <label for="{{ element.type }}-{{ loop.index }}">
-                                {{ element.label }}
-                                <textarea id="{{ element.type }}-{{ loop.index }}"
-                                          name="{{ element.name }}">
-
-                                </textarea>
-                            </label>
-                        {% endif %}
-
-                        {% if element.type == 'paragraph' %}
-                                <p id="{{ element.type }}-{{ loop.index }}">
-                                    {{ element.label }}
-                                </p>
-                        {% endif %}
-
-                        <!--
-                        {% if element.type == 'button' %}
-                            <input type="button"
-                                   class="button m-t"
-                                   id="{{ element.type }}-{{ loop.index }}"
-                                   name="{{ element.name }}"
-                                   value="{{ element.label }}">
-                        {% endif %}
-                        -->
-
-                        {% if element.type == 'date' %}
-                            <label for="{{ element.type }}-{{ loop.index }}">
-                                {{ element.label }}
-                                <input type="text"
-                                       id="{{ element.type }}-{{ loop.index }}"
-                                       name="{{ element.name }}"
-                                       class="form-datepicker">
-                            </label>
-                        {% endif %}
-
-                        {% if element.type == 'checkbox-group' %}
-                            <label>
-                                {{ element.label }}
-                                {% for checkbox in element.values %}
-                                    <label>
-                                        <input type="checkbox"
-                                               name="{{ element.name }}"
-                                               value="{{ checkbox.value }}"
-                                               {% if checkbox.selected is defined and checkbox.selected == true %}
-                                               checked="true"
-                                               {% endif %}
-                                        >
-                                        {{ checkbox.label }}
-                                    </label>
-                                {% endfor %}
-                            </label>
-                        {% endif %}
-
-                        {% if element.type == 'radio-group' %}
-                            <label>
-                                {{ element.label }}
-                                {% for radio in element.values %}
-                                    <label>
-                                    <input type="radio"
-                                           name="{{ element.name }}"
-                                           value="{{ radio.value }}"
-                                           {% if radio.selected is defined and radio.selected == true %}
-                                           selected="true"
-                                           {% endif %}
-                                    >
-                                    {{ radio.label }}
-                                    </label>
-                                {% endfor %}
-                            </label>
-                        {% endif %}
-                    {% endfor %}
+                    <form id="document-form">
+                        {% for element in elements %}
+                            {{ block("element", "document/view.form_builder.html.twig") }}
+                        {% endfor %}
+                    </form>
                 </div>
+                {% if templateUploaded == true %}
+                <div class="small-12 column">
+                    <div id="document-preview"></div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </section>
