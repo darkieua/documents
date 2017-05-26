@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,6 +28,16 @@ class RenderController extends Controller
             'elements' => $elements,
             'templateUploaded' => $document->isTemplateUploaded($this->getParameter('templates_dir'))
             ));
+    }
+
+    /**
+     * @Route("/view/template/{id}", name="get_template", requirements={"id": "\d+"})
+     */
+    public function getTemplateAction($id) {
+        $document = $this->getDoctrine()->getRepository('AppBundle:Document')->find($id);
+        $response = new BinaryFileResponse($this->getParameter('templates_dir') . $id . '.docx');
+        $response->setContentDisposition(ResponseHeaderBag::DISPOSITION_ATTACHMENT, $document->getName() . '.docx');
+        return $response;
     }
 
     /**
