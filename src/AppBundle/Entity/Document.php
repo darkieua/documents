@@ -47,6 +47,7 @@ class Document
      */
     private $json;
 
+
     /**
      * @param mixed $id
      */

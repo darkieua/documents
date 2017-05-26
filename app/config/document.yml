@@ -7,3 +7,7 @@ twig:
     automatization_dd: 1
     #ЕД:
     automatization_ed: 2
+
+parameters:
+    templates_dir: ./docs/templates/
+    temp_dir: ./docs/temp/

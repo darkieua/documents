@@ -15,11 +15,16 @@
                 <h5 class="callout cabinet small margins min">
                     <span>{{ document.name }}</span>
                 </h5>
-                <form action="/edit/save/{{ document.id }}" method="post" id="form-edit">
+                <form action="/edit/save/{{ document.id }}" method="post" id="form-edit" enctype="multipart/form-data">
                     <input type="hidden" name="document-json" id="document-json" value="{{ document.json }}">
                     <div class="small-6 column">
                             <label for="document-name">Ім'я документа
-                                <input type="text" id="document-name" name="document-name" placeholder="Ім'я документа" required value="{{ document.name }}" required>
+                                <input type="text"
+                                       id="document-name"
+                                       name="document-name"
+                                       placeholder="Ім'я документа"
+                                       value="{{ document.name }} "
+                                       required>
                             </label>
 
                             <label for="document-automatization">Ступінь автоматизації
@@ -32,10 +37,24 @@
                     </div>
                     <div class="small-6 column">
                             <label for="document-version">Версія
-                                <input type="text" id="document-version" name="document-version" value="{{ document.version }}" required>
+                                <input type="text"
+                                       id="document-version"
+                                       name="document-version"
+                                       value="{{ document.version }}"
+                                       required>
                             </label>
                             <label for="document-date">Дата затвердження
-                                <input type="text" id="document-date" name="document-date" value="{{ document.date }}">
+                                <input type="text"
+                                       id="document-date"
+                                       name="document-date"
+                                       value="{{ document.date }}">
+                            </label>
+                            <label for="document-template">Шаблон .docx
+                                <input type="file"
+                                       accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                                       id="document-template"
+                                       name="document-template"
+                                       required>
                             </label>
                     </div>
                     <div class="large-12 column">
