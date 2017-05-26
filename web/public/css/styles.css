@@ -926,9 +926,9 @@ li.service-item table td.service-title div {
 
 input {outline: none;}
 input:-webkit-autofill {
-    -webkit-box-shadow: inset 0 0 0 50px #EDEDED !important; /* Цвет фона */
-    -webkit-text-fill-color: #414042 !important; /* цвет текста */
-    color: #414042 !important; /* цвет текста */
+    -webkit-box-shadow: inset 0 0 0 50px #EDEDED !important; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ */
+    -webkit-text-fill-color: #414042 !important; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
+    color: #414042 !important; /* пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
 }
 
 .registration {

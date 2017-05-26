@@ -27,12 +27,22 @@
                         {% endfor %}
                     </form>
                 </div>
-                {% if templateUploaded == true %}
-                <div class="small-12 column">
-                    <div id="document-preview"></div>
-                </div>
-                {% endif %}
+
+
+
             </div>
         </div>
     </section>
+    {% if templateUploaded == true %}
+    <section class="row">
+        <div class="small-12 column">
+            <div class="callout clearfix margin-info">
+                <h5 class="callout cabinet small margins min">
+                    <span>Попередній перегляд</span>
+                </h5>
+                <div class="small-12 column text-center" id="document-preview"> </div>
+            </div>
+        </div>
+    </section>
+    {% endif %}
 {% endblock %}

@@ -101,7 +101,8 @@ class EditController extends Controller {
 
         $manager->flush();
 
-        $fs->copy($template, $this->getParameter('templates_dir') . $document->getId() . '.docx', true);
+        if(isset($template))
+            $fs->copy($template, $this->getParameter('templates_dir') . $document->getId() . '.docx', true);
 
         return $this->redirectToRoute('homepage');
     }

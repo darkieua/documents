@@ -1,4 +1,5 @@
 jQuery(function($) {
+    previewJpg();
     $(".form-datepicker").datepicker();
 
     $("#document-form :input").each(function(){
@@ -15,7 +16,7 @@ jQuery(function($) {
                 data: $("#document-form").serialize(),
                 mimeType: "text/plain; charset=x-user-defined"
             }).done(function( data, textStatus, jqXHR ) {
-                $("#document-preview").html('<img src=data:image/jpeg;base64,' + base64Encode(data) + '>');
+                $("#document-preview").html('<img src="data:image/jpeg;base64,' + base64Encode(data) + '">');
             }).fail(function( jqXHR, textStatus, errorThrown ) {
                 $("#block-notify .alert").html("Неможливо завантажити попередній перегляд: " + errorThrown);
             });
