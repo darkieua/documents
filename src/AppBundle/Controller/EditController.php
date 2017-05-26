@@ -66,11 +66,26 @@ class EditController extends Controller {
             $document = new Document();
         }
 
-        $document->setName($request->request->get('document-name'));
-        $document->setAutomatization($request->request->get('document-automatization'));
-        $document->setDate($request->request->get('document-date'));
-        $document->setVersion($request->request->get('document-version'));
-        $document->setJson($request->request->get('document-json'));
+        $name = $request->request->get('document-name');
+        $automatization = $request->request->get('document-automatization');
+        $date = $request->request->get('document-date');
+        $version = $request->request->get('document-version');
+        $json = $request->request->get('document-json');
+
+        if (!empty($name))
+            $document->setName($name);
+
+        if(!empty($automatization && is_numeric($automatization)))
+            $document->setAutomatization($automatization);
+
+        if(!empty($date))
+            $document->setDate($date);
+
+        if(!empty($version))
+            $document->setVersion($version);
+
+        if(!empty($json))
+            $document->setJson($json);
 
         if(empty($id))
             $manager->persist($document);

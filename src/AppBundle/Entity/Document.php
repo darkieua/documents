@@ -12,6 +12,7 @@ class Document
     public function __construct()
     {
         $this->name = "Новий документ";
+        $this->version = "01";
     }
 
     /**
