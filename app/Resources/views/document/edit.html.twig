@@ -1,0 +1,50 @@
+{% extends 'document/index.html.twig' %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script src="/public/js/formbuilder/form-builder.min.js"></script>
+    <script src="/public/js/formbuilder/form-render.min.js"></script>
+    <script src="/public/js/edit.js"></script>
+{% endblock %}
+
+
+{% block content %}
+    <section class="row">
+        <div class="small-12 column">
+            <div class="callout clearfix margin-info">
+                <h5 class="callout cabinet small margins min">
+                    <span>{{ document.name }}</span>
+                </h5>
+                <form action="/edit/save/{{ document.id }}" method="post" id="form-edit">
+                    <input type="hidden" name="document-json" id="document-json" value="[]">
+                    <div class="small-6 column">
+                            <label for="document-name">Ім'я документа
+                                <input type="text" id="document-name" name="document-name" placeholder="Ім'я документа" required value="{{ document.name }}">
+                            </label>
+
+                            <label for="document-automatization">Ступінь автоматизації
+                                <select id="document-automatization" name="document-automatization">
+                                    <option value="0"{% if document.automatization == 0 %} selected {% endif %}>Незаповнений шаблон (ДШ)</option>
+                                    <option value="1"{% if document.automatization == 1 %} selected {% endif %}>Сформований документ (ДД)</option>
+                                    <option value="2"{% if document.automatization == 2 %} selected {% endif %}>Сформований документ з можливістю електронного документообігу (ЕД)</option>
+                                </select>
+                            </label>
+                    </div>
+                    <div class="small-6 column">
+                            <label for="document-version">Версія
+                                <input type="text" id="document-version" name="document-version" value="{{ document.version }}">
+                            </label>
+                            <label for="document-date">Дата затвердження
+                                <input type="text" id="document-date" name="document-date" value="{{ document.date }}">
+                            </label>
+                    </div>
+                    <div class="large-12 column">
+                        <div id="fb-editor"></div>
+                        <input class="button m-t" type="submit" value="Зберегти">
+                    </div>
+                    &nbsp;
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}

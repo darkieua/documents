@@ -1,0 +1,18 @@
+{% extends 'document/index.html.twig' %}
+
+{% block content %}
+    <section class="row">
+        <div class="small-12 column">
+            <div class="callout clearfix margin-info">
+                <h5 class="callout cabinet small margins min">
+                    <span>{{ document.name }}</span>
+                </h5>
+                <div class="small-12 column">
+                    {% for element in elements %}
+                        {{ element.type }} <br/>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

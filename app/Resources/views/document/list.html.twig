@@ -1,0 +1,64 @@
+{% extends 'document/index.html.twig' %}
+
+{% block content %}
+    <!--
+    <section class="row text-center">
+        <h1 style="font-size: 12pt; font-weight: bold;">
+            РЕЄСТР<br>форм документів сервісу системи управління якістю діяльності<br>«Шаблони документів СумДУ»
+        </h1>
+    </section>
+    -->
+    <section class="row">
+        <div class="small-12 column">
+            <div class="callout clearfix margin-info">
+                <h5 class="callout cabinet small margins min">
+                    <span>Перелік шаблонів документів реєстру </span>
+                </h5>
+                <div class="small-12 column">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th width="40">№ <br/>з/п</th>
+                            <th>Назва документу</th>
+                            <th width="50">Версія шаблону</th>
+                            <th width="150">Дата затвердження</th>
+                            <th width="150">Ступінь автоматизації</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr>
+                            <td>--</td>
+                            <td><a href="/edit/new/"><b>Додати новий</b></a></td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                        {% for document in documents %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td><a href="/view/{{ document.id }}">{{ document.name }}</a>
+                                    <i><a href="/edit/{{ document.id }}">[Редагувати]</a></i>
+                                    <i><a href="/edit/remove/{{ document.id }}">[Видалити]</a></i>
+                                </td>
+                                <td>{{ document.version }}</td>
+                                <td>{{ document.date }}</td>
+                                <td>
+                                    {%  if document.automatization == automatization_dsh  %}
+                                    ДШ
+                                    {%  elseif document.automatization == automatization_dd  %}
+                                    ДД
+                                    {%  elseif document.automatization == automatization_ed  %}
+                                    ЕД
+                                    {% endif %}
+                                    {% set last = loop.index %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

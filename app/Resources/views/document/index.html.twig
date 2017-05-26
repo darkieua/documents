@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ua">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1251"/>
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="<?=$this->labels['info']['title']?>"/>
+    <meta name="keywords" content="<?=$this->labels['info']['keywords']?>"/>
+    <meta http-equiv="Cache-control" content="no-cache"/>
+
+    <title>{{ page_title }}</title>
+
+    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <link media="all" rel="stylesheet" type="text/css" href="/public/css/jquery-ui-1.11.4.css"/>
+    <link media="all" rel="stylesheet" type="text/css" href="/public/css/app.css"/>
+
+    <script async type="text/javascript" src="/public/js/md5-min.js"></script>
+
+</head>
+<body>
+    <div id="waitingbg"></div>
+    <div id="circularG">
+        <div id="circularG_1" class="circularG"></div>
+        <div id="circularG_2" class="circularG"></div>
+        <div id="circularG_3" class="circularG"></div>
+        <div id="circularG_4" class="circularG"></div>
+        <div id="circularG_5" class="circularG"></div>
+        <div id="circularG_6" class="circularG"></div>
+        <div id="circularG_7" class="circularG"></div>
+        <div id="circularG_8" class="circularG"></div>
+    </div>
+
+    <div id="page">
+        <header class="row">
+            <div class="large-12 columns ">
+                <div class="top-bar cabinet">
+                    <div class="large-12 column">
+                        <a class="float-left" style="display: block;" href="http://sumdu.edu.ua">
+                            <img src="/public/images/logotip_SSU_2_h42.png" width="35" height="42" alt="Логотип">
+                        </a>
+                        <h1><a href="/">Електронний документ</a></h1>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <div class="row">
+            <div id="top-notify" class="small-12 column text-center min-height-info">
+                <b class="alert"></b>
+                <b class="primary"></b>
+            </div>
+        </div>
+
+        {{ block("top_blocks", "document/index.top_blocks.html.twig") }}
+
+        <main>
+            <div class="row">
+                <div class="small-12 column text-center min-height-info">
+                    <b class="alert"></b>
+                    <b class="primary"></b>
+                </div>
+            </div>
+            {% block content %}
+
+            {% endblock %}
+        </main>
+    </div><!--#page-->
+
+    <footer id="footer" class="row">
+        <div class="small-12 columns ">
+            <div class="top-bar" style="margin-bottom:0;">
+                <div class="large-12 column none">
+                    <small class="float-right">&copy; Центр інформаційних систем <?php echo date("Y");?></small>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    {% block javascripts %}
+    <script src="/public/js/foundation/jquery.min.js"></script>
+    <script src="/public/js/foundation/foundation.min.js"></script>
+    <script src="/public/js/foundation/app.js"></script>
+    <script src="/public/js/foundation/jquery-ui-1.11.4.accordion.min.js"></script>
+    <script src="/public/js/jquery.maskedinput-1.4.1.min.js"></script>
+    <script src="/public/js/foundation/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script defer src="/public/js/foundation/cabinet.main.js"></script>
+    {% endblock %}
+
+    </body>
+</html>

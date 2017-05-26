@@ -1,0 +1,9 @@
+twig:
+  globals:
+    #Константы ступеней автоматизации
+    #ДШ:
+    automatization_dsh: 0
+    #ДД:
+    automatization_dd: 1
+    #ЕД:
+    automatization_ed: 2

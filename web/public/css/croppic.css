@@ -1,0 +1,146 @@
+#croppic{
+	width: 400px;  /* MANDATORY */
+	height: 208px; /* MANDATORY */
+	position: relative;  /* MANDATORY */
+
+	margin: 50px 70px 20px;
+	border: 3px  solid #FFF;
+	box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	border-radius: 2px;
+	background-image: url(../images/croppic/placeholder.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	box-shadow: 8px 8px 0px rgba(0,0,0,0.1);
+}
+
+/* DO NOT CHANGE FROM HERE ( unless u know what u are doing) */
+.cropImgWrapper{
+	cursor: grab;
+	cursor: -moz-grab;
+	cursor: -webkit-grab;
+
+}
+#croppicModal img {
+	max-width: none;
+}
+/*.cropImgWrapper:active{
+	cursor: grabbing;
+	cursor: -webkit-grabbing;
+	cursor: -moz-grabbing;
+}*/
+
+.cropImgUpload{
+	z-index:2;
+	position:absolute;
+	/*height:28px;*/
+	display:block;
+	top: -30px;
+	right: -2px;
+	font-family:sans-serif;
+	width:20px;
+	height:20px;
+	text-align:center;
+	line-height:20px;
+	color:#FFF;
+}
+
+.cropControls,.custom-cropControls{
+	z-index:2;
+	position:absolute;
+	height:32px;
+	display:block;
+	/* top: -31px; */
+	top: 0;
+	right: 0;
+	width:256px;
+	font-family:sans-serif;
+	background-color:rgba(0,0,0,0.35);
+}
+
+.custom-cropControls {
+	background-color: rgba(0,0,0,0.35);
+	height:32px;
+	width: 100%;
+	top: auto;
+	right: auto;
+	bottom:0;
+	text-align: center;
+}
+
+.cropControls i, .custom-cropControls i{
+	display:block;
+	float:left;
+	margin:0;
+	cursor:pointer;
+	background-image:url('../images/croppic/cropperIconsCustom.png');
+	width:32px;
+	height:32px;
+	text-align:center;
+	line-height:20px;
+	color:#FFF;
+	font-size:13px;
+	font-weight: bold;
+	font-style: normal;
+
+}
+
+.custom-cropControls i{
+	display: inline-block;
+	float: none;
+	width:32px;
+	height:32px;
+}
+
+
+.cropControlsUpload {
+	display: none;
+}
+
+.custom-cropControls i:hover, .cropControls i:hover{ background-color:rgba(0,0,0,0.8);  }
+
+.cropControls i.cropControlZoomMuchIn{ background-position:0px 0px;}
+.cropControls i.cropControlZoomIn{ background-position:-32px 0px; }
+.cropControls i.cropControlZoomOut{ background-position:-64px 0px; }
+.cropControls i.cropControlZoomMuchOut{ background-position:-96px 0px; }
+.cropControls i.cropControlRotateLeft{ background-position:-224px 0px; }
+.cropControls i.cropControlRotateRight{ background-position:-256px 0px; }
+.cropControls i.cropControlCrop{ background-position:-128px 0px;}
+.cropControls i.cropControlUpload{ background-position:-160px 0px;}
+.custom-cropControls i.cropControlUpload{ background-position:-160px 0px;}
+.cropControls i.cropControlReset{ background-position:-192px 0px;}
+.cropControls i.cropControlRemoveCroppedImage, .custom-cropControls i.cropControlRemoveCroppedImage{ background-position:-192px 0px;}
+
+.cropControls i:last-child{
+	margin-right:none;
+}
+
+#croppicModal{
+	position:fixed;
+	width:100%;
+	height:100%;
+	top: 0;
+	left: 0;
+	display:block;
+	background:rgba(0,0,0,0.8);
+	z-index: 10000;
+}
+
+.loader {
+	position: absolute;
+	left:0;
+	top:0;
+	background-color: #fff;
+	opacity: 0.7;
+	width: 100%;
+	height: 100%;
+}
+.loader img{
+	position: absolute;
+	left: 50%;
+	margin-left: -23.5px;
+	top:50%;
+	margin-top: -23.5px;
+}
+
+/* some reset stlyes */
