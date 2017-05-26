@@ -49,8 +49,8 @@
 
         <div class="row">
             <div id="top-notify" class="small-12 column text-center min-height-info">
-                <b class="alert"></b>
-                <b class="primary"></b>
+                <b class="alert">{% block top_alert %}{% endblock %}</b>
+                <b class="primary">{% block top_primary %}{% endblock %}</b>
                 <b class="primary">{% if debug is defined %} Debug: {{ debug }} {% endif %}</b>
             </div>
         </div>
@@ -60,8 +60,8 @@
         <main>
             <div class="row">
                 <div id="block-notify" class="small-12 column text-center min-height-info">
-                    <b class="alert"></b>
-                    <b class="primary"></b>
+                    <b class="alert">{% block block_alert %}{% endblock %}</b>
+                    <b class="primary">{% block block_primary %}{% endblock %}</b>
                 </div>
             </div>
             {% block content %}

@@ -2,7 +2,6 @@ jQuery(function($) {
     $(".form-datepicker").datepicker();
 
     $("#document-form :input").each(function(){
-        console.log($(this));
         $(this).change(function(){
             previewJpg();
         })

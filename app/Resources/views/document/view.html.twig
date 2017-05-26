@@ -7,6 +7,12 @@
     </script>
 {% endblock %}
 
+
+{% block block_primary %}
+    {% if templateUploaded == false %}Увага! Цей документ не має шаблону у форматі .docx{% endif %}
+{% endblock %}
+
+
 {% block content %}
     <section class="row">
         <div class="small-12 column">
