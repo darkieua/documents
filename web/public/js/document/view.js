@@ -1,24 +1,36 @@
 jQuery(function($) {
-    previewJpg();
     $(".form-datepicker").datepicker();
 
     $("#document-form :input").each(function(){
         $(this).change(function(){
             previewJpg();
-        })
+        });
+        $(this).attr('name', 'document[' + $(this).attr('name') + ']');
     });
 
     function previewJpg() {
-        if ($('#document-preview').length) {
+        var docPreview = $("#document-preview");
+        if (docPreview.length) {
             $.ajax({
                 url: '/view/generated/' + id + '.jpg',
                 type: "POST",
                 data: $("#document-form").serialize(),
-                mimeType: "text/plain; charset=x-user-defined"
-            }).done(function( data, textStatus, jqXHR ) {
-                $("#document-preview").html('<img src="data:image/jpeg;base64,' + base64Encode(data) + '">');
-            }).fail(function( jqXHR, textStatus, errorThrown ) {
-                $("#block-notify .alert").html("Неможливо завантажити попередній перегляд: " + errorThrown);
+                mimeType: "text/plain; charset=x-user-defined",
+                beforeSend: function () {
+                    var loadingImg = '<img class="document-preview-loading" src="/public/images/cube.svg">';
+                    var docPreview = $("#document-preview");
+                    if (!(/\S/.test(docPreview.html()))) docPreview.html(loadingImg);
+                    docPreview.css('opacity', '0.3');
+                },
+                success: function( data ) {
+                    var imgSrc = 'data:image/jpeg;base64,' + base64Encode(data);
+                    docPreview.css('opacity', '1.0');
+                    docPreview.html('<img class="document-preview-rendered" src="' + imgSrc + '">');
+                },
+                error: function( jqXHR, textStatus, errorThrown ) {
+                    $("#block-notify").find(".alert").html("Неможливо завантажити попередній перегляд: " + errorThrown);
+                    console.log("Preview failed: " + " " + textStatus + " [" + errorThrown + "]");
+                }
             });
         }
     }
@@ -50,4 +62,6 @@ jQuery(function($) {
         }
         return out;
     }
+
+    previewJpg();
 });

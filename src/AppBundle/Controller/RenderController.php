@@ -5,6 +5,7 @@ use PhpOffice\PhpWord\TemplateProcessor;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
@@ -45,21 +46,26 @@ class RenderController extends Controller
      */
     public function generateJpgAction($id) {
         $request = Request::createFromGlobals();
-        $generatedDocx = $this->formDocument($id, $request);
+        $generatedDocx = $this->formDocument($id, $request->request->get('document'));
         $response = $this->convertToJPG($this->getParameter('temp_dir') . $generatedDocx . '.docx');
 
         return new BinaryFileResponse($this->getParameter('temp_dir') . $generatedDocx . '.jpg');
     }
 
     private function formDocument($id, $request) {
-        $template = new TemplateProcessor($this->getParameter('templates_dir') . $id . '.docx');
-        foreach ($request->request as $param => $value) {
-            $template->setValue($param, $value);
+        if (!empty($request)) {
+            $template = new TemplateProcessor($this->getParameter('templates_dir') . $id . '.docx');
+            foreach ($request as $param => $value) {
+                $template->setValue($param, $value);
+            }
+            $temp_dir = $this->getParameter('temp_dir');
+            $fileName = $id . '_' . microtime() * rand();
+            $template->saveAs($temp_dir . $fileName . '.docx');
+            return $fileName;
+        } else {
+            throw new \InvalidArgumentException("document array from request is empty");
+            return null;
         }
-        $temp_dir = $this->getParameter('temp_dir');
-        $fileName = $id . '_' . microtime() * rand();
-        $template->saveAs($temp_dir . $fileName . '.docx');
-        return $fileName;
     }
 
     private function convertToJPG ($file) {

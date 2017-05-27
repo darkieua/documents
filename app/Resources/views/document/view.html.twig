@@ -33,6 +33,7 @@
             </div>
         </div>
     </section>
+
     {% if templateUploaded == true %}
     <section class="row">
         <div class="small-12 column">
@@ -40,7 +41,13 @@
                 <h5 class="callout cabinet small margins min">
                     <span>Попередній перегляд</span>
                 </h5>
-                <div class="small-12 column text-center" id="document-preview"> </div>
+                <div class="small-12 column text-center">
+                    <button id="button-preview-pdf" class="button m-t">PDF</button>
+                    <button id="button-preview-jpg" class="button m-t">JPEG</button>
+                    <div id="document-preview" class="padding-top">
+
+                    </div>
+                </div>
             </div>
         </div>
     </section>

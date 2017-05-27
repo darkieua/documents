@@ -1,6 +1,11 @@
 jQuery(function($) {
     var json = $("#document-json");
-    var fbEditor = document.getElementById('fb-editor');
+    var fbEditor = $("#fb-editor");
+    var automatization = $("#document-automatization");
+    var isDocumentDsh = automatization.val() == 0;
+
+    if (isDocumentDsh) fbEditor.hide();
+
     var formBuilder = $(fbEditor).formBuilder({
         dataType: 'json',
         formData: json.val(),
@@ -9,8 +14,26 @@ jQuery(function($) {
         }
     });
 
+    automatization.change(function() {
+        isDocumentDsh = automatization.val() == 0;
+        if (isDocumentDsh) {
+            console.log("DSH");
+            $(".dsh-element").each(function() {
+                $(this).slideUp(1000);
+            });
+        } else {
+            console.log("NOT DSH");
+            $(".dsh-element").each(function() {
+                $(this).slideDown(1000);
+            });
+        }
+    });
+
+
+
     $("#form-edit").submit(function () {
-        json.val(formBuilder.actions.save());
+        if (!isDocumentDsh)
+            json.val(formBuilder.actions.save());
     });
 
     $(".form-datepicker").datepicker();
