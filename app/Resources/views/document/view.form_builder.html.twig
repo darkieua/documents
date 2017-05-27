@@ -7,18 +7,14 @@
                    name="{{ element.name }}"
             >
         </label>
-    {% endif %}
-
-    {% if element.type == 'number' %}
+    {% elseif element.type == 'number' %}
         <label for="{{ element.type }}-{{ loop.index }}">
             {{ element.label }}
             <input type="number"
                    id="{{ element.type }}-{{ loop.index }}"
                    name="{{ element.name }}">
         </label>
-    {% endif %}
-
-    {% if element.type == 'textarea' %}
+    {% elseif element.type == 'textarea' %}
         <label for="{{ element.type }}-{{ loop.index }}">
             {{ element.label }}
             <textarea id="{{ element.type }}-{{ loop.index }}"
@@ -26,25 +22,19 @@
 
             </textarea>
         </label>
-    {% endif %}
-
-    {% if element.type == 'paragraph' %}
+    {% elseif element.type == 'paragraph' %}
         <p id="{{ element.type }}-{{ loop.index }}">
             {{ element.label }}
         </p>
-    {% endif %}
-
     <!--
-    {% if element.type == 'button' %}
+    {% elseif element.type == 'button' %}
         <input type="button"
                class="button m-t"
                id="{{ element.type }}-{{ loop.index }}"
                name="{{ element.name }}"
                value="{{ element.label }}">
-    {% endif %}
     -->
-
-    {% if element.type == 'date' %}
+    {% elseif element.type == 'date' %}
         <label for="{{ element.type }}-{{ loop.index }}">
             {{ element.label }}
             <input type="text"
@@ -52,9 +42,7 @@
                    name="{{ element.name }}"
                    class="form-datepicker">
         </label>
-    {% endif %}
-
-    {% if element.type == 'checkbox-group' %}
+    {% elseif element.type == 'checkbox-group' %}
         <label>
             {{ element.label }}
             {% for checkbox in element.values %}
@@ -70,9 +58,7 @@
                 </label>
             {% endfor %}
         </label>
-    {% endif %}
-
-    {% if element.type == 'radio-group' %}
+    {% elseif element.type == 'radio-group' %}
         <label>
             {{ element.label }}
             {% for radio in element.values %}
@@ -88,5 +74,7 @@
                 </label>
             {% endfor %}
         </label>
+    {% else %}
+        {{ element.name }}<br/>
     {% endif %}
 {% endblock %}

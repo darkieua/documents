@@ -22,9 +22,13 @@
                 </h5>
                 <div class="small-12 column">
                     <form id="document-form">
-                        {% for element in elements %}
-                            {{ block("element", "document/view.form_builder.html.twig") }}
-                        {% endfor %}
+                        {% if elements is empty %}
+                            <p class="primary text-center margin-bottom-none">Інформація для відображення відсутня.</p>
+                        {% else %}
+                            {% for element in elements %}
+                                {{ block("element", "document/view.form_builder.html.twig") }}
+                            {% endfor %}
+                        {% endif %}
                     </form>
                 </div>
 
