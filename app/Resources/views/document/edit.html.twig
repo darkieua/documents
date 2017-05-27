@@ -9,13 +9,13 @@
 
 
 {% block content %}
+    <form action="/edit/save/{{ document.id }}" method="post" id="form-edit" enctype="multipart/form-data">
     <section class="row">
         <div class="small-12 column">
             <div class="callout clearfix margin-info">
                 <h5 class="callout cabinet small margins min">
-                    <span>{{ document.name }}</span>
+                    <span>{{ document.name }} (параметри документу)</span>
                 </h5>
-                <form action="/edit/save/{{ document.id }}" method="post" id="form-edit" enctype="multipart/form-data">
                     <input type="hidden" name="document-json" id="document-json" value="{{ document.json }}">
                     <div class="small-6 column">
                             <label for="document-name">Ім'я документа
@@ -34,6 +34,14 @@
                                     <option value="2"{% if document.automatization == 2 %} selected {% endif %}>Сформований документ з можливістю електронного документообігу (ЕД)</option>
                                 </select>
                             </label>
+
+                            <label for="document-collumns">Кількість колонок
+                                <select id="document-collumns">
+                                    <option value="1">Одна колонка</option>
+                                    <option value="2">Дві колонки</option>
+                                </select>
+                            </label>
+                        <input class="button m-t text-right" type="submit" value="Зберегти"><br/>&nbsp;
                     </div>
                     <div class="small-6 column">
                             <label for="document-version">Версія
@@ -56,13 +64,21 @@
                                        name="document-template">
                             </label>
                     </div>
-                    <div class="large-12 column">
-                        <div class="dsh-element" id="fb-editor"></div>
-                        <input class="button m-t" type="submit" value="Зберегти">
-                    </div>
-                    &nbsp;
-                </form>
             </div>
         </div>
     </section>
+
+    <section class="row dsh-element">
+        <div class="small-12 column">
+            <div class="callout clearfix margin-info">
+                <h5 class="callout cabinet small margins min">
+                    <span>{{ document.name }} (форма)</span>
+                </h5>
+                    <div class="fb-column small-12 column">
+                        <div class="dsh-element fb-editor" id="form-builder"></div>
+                    </div>
+            </div>
+        </div>
+    </section>
+    </form>
 {% endblock %}

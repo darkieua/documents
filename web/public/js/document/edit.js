@@ -3,16 +3,19 @@ jQuery(function($) {
     var fbEditor = $("#fb-editor");
     var automatization = $("#document-automatization");
     var isDocumentDsh = automatization.val() == 0;
+    var fbArray = [];
 
     if (isDocumentDsh) fbEditor.hide();
 
 
-    var formBuilder = $(fbEditor).formBuilder({
-        dataType: 'json',
-        formData: json.val(),
-        i18n: {
-            locale: 'ru-RU'
-        }
+    $(".fb-editor").each(function() {
+        fbArray.push($(this).formBuilder({
+            dataType: 'json',
+            formData: json.val(),
+            i18n: {
+                locale: 'ru-RU'
+            }
+        }));
     });
 
     automatization.change(function() {
@@ -32,9 +35,11 @@ jQuery(function($) {
 
 
 
-    $("#form-edit").submit(function () {
+    $("#form-edit").submit(function (e) {
         if (!isDocumentDsh)
-            json.val(formBuilder.actions.save());
+            fbArray.forEach(function(fb_instance) {
+                json.val(fb_instance.actions.save());
+            })
     });
 
     $(".form-datepicker").datepicker();
