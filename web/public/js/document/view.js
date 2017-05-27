@@ -1,15 +1,32 @@
 jQuery(function($) {
+    var docPreview = $("#document-preview");
+
     $(".form-datepicker").datepicker();
 
-    $("#document-form :input").each(function(){
+    $("#document-form").find(":input").each(function(){
         $(this).change(function(){
             previewJpg();
         });
         $(this).attr('name', 'document[' + $(this).attr('name') + ']');
     });
 
+    $(".render-preview").each(function() {
+       $(this).data('render');
+       $(this).click(function() {
+           switch ($(this).data('render')) {
+               case 'jpg':
+                   previewJpg();
+                   break;
+               case 'pdf':
+                   previewPdf();
+                   break;
+               default:
+                   console.log("Unknown preview format attribute");
+           }
+       })
+    });
+
     function previewJpg() {
-        var docPreview = $("#document-preview");
         if (docPreview.length) {
             $.ajax({
                 url: '/view/generated/' + id + '.jpg',
@@ -26,6 +43,34 @@ jQuery(function($) {
                     var imgSrc = 'data:image/jpeg;base64,' + base64Encode(data);
                     docPreview.css('opacity', '1.0');
                     docPreview.html('<img class="document-preview-rendered" src="' + imgSrc + '">');
+                },
+                error: function( jqXHR, textStatus, errorThrown ) {
+                    $("#block-notify").find(".alert").html("Неможливо завантажити попередній перегляд: " + errorThrown);
+                    console.log("Preview failed: " + " " + textStatus + " [" + errorThrown + "]");
+                }
+            });
+        }
+    }
+
+    function previewPdf() {
+        if (docPreview.length) {
+            $.ajax({
+                url: '/view/generated/' + id + '.pdf',
+                type: "POST",
+                data: $("#document-form").serialize(),
+                mimeType: "text/plain; charset=x-user-defined",
+                beforeSend: function () {
+                    var loadingImg = '<img class="document-preview-loading" src="/public/images/cube.svg">';
+                    var docPreview = $("#document-preview");
+                    if (!(/\S/.test(docPreview.html()))) docPreview.html(loadingImg);
+                    docPreview.css('opacity', '0.3');
+                },
+                success: function( data ) {
+                    var pdfSrc = 'data:application/pdf;base64,' + base64Encode(data);
+                    docPreview.css('opacity', '1.0');
+                    docPreview.html('<object data="' + pdfSrc + '" type="application/pdf" class="document-preview-rendered" width="75%" height="500px">' +
+                                    + '<a href="data/test.pdf">test.pdf</a>'
+                                    + '</object>');
                 },
                 error: function( jqXHR, textStatus, errorThrown ) {
                     $("#block-notify").find(".alert").html("Неможливо завантажити попередній перегляд: " + errorThrown);

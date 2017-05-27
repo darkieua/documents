@@ -6,6 +6,7 @@ jQuery(function($) {
 
     if (isDocumentDsh) fbEditor.hide();
 
+
     var formBuilder = $(fbEditor).formBuilder({
         dataType: 'json',
         formData: json.val(),

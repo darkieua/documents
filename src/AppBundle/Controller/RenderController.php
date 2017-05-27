@@ -52,24 +52,37 @@ class RenderController extends Controller
         return new BinaryFileResponse($this->getParameter('temp_dir') . $generatedDocx . '.jpg');
     }
 
+    /**
+     * @Route("/view/generated/{id}.pdf", name="generate_pdf", requirements={"id": "\d+"})
+     */
+    public function generatePdfAction($id) {
+        $request = Request::createFromGlobals();
+        $generatedDocx = $this->formDocument($id, $request->request->get('document'));
+        $this->convertToPDF($this->getParameter('temp_dir') . $generatedDocx . '.docx');
+
+        $response = new BinaryFileResponse($this->getParameter('temp_dir') . $generatedDocx . '.pdf');
+        $response->headers->set('Content-Disposition', 'filename="filetodownload.pdf');
+        return $response;
+    }
+
     private function formDocument($id, $request) {
-        if (!empty($request)) {
-            $template = new TemplateProcessor($this->getParameter('templates_dir') . $id . '.docx');
+        $template = new TemplateProcessor($this->getParameter('templates_dir') . $id . '.docx');
+        if (!empty($request))
             foreach ($request as $param => $value) {
                 $template->setValue($param, $value);
             }
-            $temp_dir = $this->getParameter('temp_dir');
-            $fileName = $id . '_' . microtime() * rand();
-            $template->saveAs($temp_dir . $fileName . '.docx');
-            return $fileName;
-        } else {
-            throw new \InvalidArgumentException("document array from request is empty");
-            return null;
-        }
+        $temp_dir = $this->getParameter('temp_dir');
+        $fileName = $id . '_' . microtime() * rand();
+        $template->saveAs($temp_dir . $fileName . '.docx');
+        return $fileName;
     }
 
     private function convertToJPG ($file) {
         return shell_exec('export HOME=/tmp && libreoffice --headless --convert-to jpg --outdir ' . $this->getParameter('temp_dir') . ' ' . $file);
+    }
+
+    private function convertToPDF ($file) {
+        return shell_exec('export HOME=/tmp && libreoffice --headless --convert-to pdf --outdir ' . $this->getParameter('temp_dir') . ' ' . $file);
     }
 
 }
