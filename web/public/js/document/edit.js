@@ -2,11 +2,15 @@ jQuery(function($) {
     var json = $("#document-json");
     var fbEditor = $("#fb-editor");
     var automatization = $("#document-automatization");
+    var dshElementsArray = $(".dsh-element");
     var isDocumentDsh = automatization.val() == 0;
     var fbArray = [];
 
-    if (isDocumentDsh) fbEditor.hide();
-
+    if(isDocumentDsh) {
+        dshElementsArray.each(function() {
+            $(this).hide();
+        });
+    }
 
     $(".fb-editor").each(function() {
         fbArray.push($(this).formBuilder({
@@ -22,12 +26,12 @@ jQuery(function($) {
         isDocumentDsh = automatization.val() == 0;
         if (isDocumentDsh) {
             console.log("DSH");
-            $(".dsh-element").each(function() {
+            dshElementsArray.each(function() {
                 $(this).slideUp(1000);
             });
         } else {
             console.log("NOT DSH");
-            $(".dsh-element").each(function() {
+            dshElementsArray.each(function() {
                 $(this).slideDown(1000);
             });
         }
