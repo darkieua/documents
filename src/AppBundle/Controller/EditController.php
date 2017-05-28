@@ -84,7 +84,7 @@ class EditController extends Controller {
         if (!empty($name))
             $document->setName($name);
 
-        if(!empty($automatization && is_numeric($automatization)))
+        if(isset($automatization) && is_numeric($automatization)) //Если юзать empty вместо isset, то ДШ не будет применяться, т.к. automatization = 0
             $document->setAutomatization($automatization);
 
         if(!empty($date))
