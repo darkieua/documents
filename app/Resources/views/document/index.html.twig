@@ -10,8 +10,9 @@
 
     <title>{{ page_title }}</title>
 
-    <link rel="shortcut icon" type="image/vnd.microsoft.icon" href="/favicon.ico" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 
     <link media="all" rel="stylesheet" type="text/css" href="/public/css/jquery-ui-1.11.4.css"/>
     <link media="all" rel="stylesheet" type="text/css" href="/public/css/app.css"/>
@@ -37,10 +38,10 @@
             <div class="large-12 columns ">
                 <div class="top-bar cabinet">
                     <div class="large-12 column">
-                        <a class="float-left" style="display: block;" href="http://sumdu.edu.ua">
+                        <a class="float-left" style="display: block;" href="/">
                             <img src="/public/images/logotip_SSU_2_h42.png" width="35" height="42" alt="Логотип">
                         </a>
-                        <h1><a href="/">Електронний документ</a></h1>
+                        <a href="/"><h1>Електронний документ</h1></a>
                     </div>
 
                 </div>
@@ -49,8 +50,9 @@
 
         <div class="row">
             <div id="top-notify" class="small-12 column text-center min-height-info">
-                <b class="alert"></b>
-                <b class="primary"></b>
+                <b class="alert">{% block top_alert %}{% endblock %}</b>
+                <b class="primary">{% block top_primary %}{% endblock %}</b>
+                <b class="primary">{% if debug is defined %} Debug: {{ debug }} {% endif %}</b>
             </div>
         </div>
 
@@ -58,9 +60,9 @@
 
         <main>
             <div class="row">
-                <div class="small-12 column text-center min-height-info">
-                    <b class="alert"></b>
-                    <b class="primary"></b>
+                <div id="block-notify" class="small-12 column text-center min-height-info">
+                    <b class="alert">{% block block_alert %}{% endblock %}</b>
+                    <b class="primary">{% block block_primary %}{% endblock %}</b>
                 </div>
             </div>
             {% block content %}
@@ -73,7 +75,7 @@
         <div class="small-12 columns ">
             <div class="top-bar" style="margin-bottom:0;">
                 <div class="large-12 column none">
-                    <small class="float-right">&copy; Центр інформаційних систем <?php echo date("Y");?></small>
+                    <small class="float-right">&copy; Центр інформаційних систем {{ "now"|date("Y") }}</small>
                 </div>
             </div>
         </div>
@@ -89,5 +91,17 @@
     <script defer src="/public/js/foundation/cabinet.main.js"></script>
     {% endblock %}
 
+    <style>
+        .document-preview-rendered {
+            border:1px solid #c2c2c2;
+            margin-top: 1em;
+            margin-bottom: 2em;
+        }
+
+        .document-preview-loading {
+            margin-top: 5em;
+            margin-bottom: 5em;
+        }
+    </style>
     </body>
 </html>

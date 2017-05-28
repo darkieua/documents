@@ -37,7 +37,11 @@
                         {% for document in documents %}
                             <tr>
                                 <td>{{ loop.index }}</td>
-                                <td><a href="/view/{{ document.id }}">{{ document.name }}</a>
+                                <td>{%  if document.automatization == automatization_dsh  %}
+                                        <a href="/view/template/{{ document.id }}">{{ document.name }}</a>
+                                    {% else %}
+                                        <a href="/view/{{ document.id }}">{{ document.name }}</a>
+                                    {% endif %}
                                     <i><a href="/edit/{{ document.id }}">[Редагувати]</a></i>
                                     <i><a href="/edit/remove/{{ document.id }}">[Видалити]</a></i>
                                 </td>

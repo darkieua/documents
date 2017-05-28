@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Filesystem\Filesystem;
 
 /**
  * @ORM\Entity
@@ -46,6 +47,7 @@ class Document
      * @ORM\Column(type="text")
      */
     private $json;
+
 
     /**
      * @param mixed $id
@@ -141,5 +143,9 @@ class Document
     public function getAutomatization()
     {
         return $this->automatization;
+    }
+
+    public function isTemplateUploaded($templateDir) {
+        return (new Filesystem())->exists($templateDir . $this->id . '.docx');
     }
 }

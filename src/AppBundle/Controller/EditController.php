@@ -1,11 +1,18 @@
 <?php
 
 namespace AppBundle\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
 use AppBundle\Entity\Document;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Config\Definition\Exception\Exception;
+
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
+
 
 class EditController extends Controller {
 
@@ -53,6 +60,7 @@ class EditController extends Controller {
         $request = Request::createFromGlobals();
 
         $manager = $this->getDoctrine()->getManager();
+        $fs = new Filesystem();
 
         if (!empty($id)) {
             $document = $manager->getRepository('AppBundle:Document')->find($id);
@@ -71,11 +79,12 @@ class EditController extends Controller {
         $date = $request->request->get('document-date');
         $version = $request->request->get('document-version');
         $json = $request->request->get('document-json');
+        $template = $request->files->get('document-template');
 
         if (!empty($name))
             $document->setName($name);
 
-        if(!empty($automatization && is_numeric($automatization)))
+        if(isset($automatization) && is_numeric($automatization)) //Если юзать empty вместо isset, то ДШ не будет применяться, т.к. automatization = 0
             $document->setAutomatization($automatization);
 
         if(!empty($date))
@@ -91,6 +100,9 @@ class EditController extends Controller {
             $manager->persist($document);
 
         $manager->flush();
+
+        if(isset($template))
+            $fs->copy($template, $this->getParameter('templates_dir') . $document->getId() . '.docx', true);
 
         return $this->redirectToRoute('homepage');
     }
