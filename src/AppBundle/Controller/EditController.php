@@ -20,6 +20,7 @@ class EditController extends Controller {
      * @Route("/edit/{id}", name="edit_document", requirements={"id": "\d+"})
      */
     public function editAction($id) {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
         $document = $this->getDoctrine()->getRepository('AppBundle:Document')->find($id);
         return $this->render('document/edit.html.twig', array('page_title' => "Редагування документу", 'document' => $document));
     }
@@ -28,6 +29,7 @@ class EditController extends Controller {
      * @Route("/edit/new/", name="new_document")
      */
     public function newAction() {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
         $document = new Document();
         return $this->render('document/edit.html.twig', array('page_title' => "Новий документ", 'document' => $document));
     }
@@ -36,6 +38,7 @@ class EditController extends Controller {
      * @Route("/edit/remove/{id}", name="remove_document", requirements={"id": "\d+"})
      */
     public function removeAction($id) {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
         $manager = $this->getDoctrine()->getManager();
         $document = $manager->getRepository('AppBundle:Document')->find($id);
 
@@ -56,7 +59,7 @@ class EditController extends Controller {
      * @Route("/edit/save/{id}", name="save_document", requirements={"id": "\d+"})
      */
     public function saveAction($id = '') {
-
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
         $request = Request::createFromGlobals();
 
         $manager = $this->getDoctrine()->getManager();
