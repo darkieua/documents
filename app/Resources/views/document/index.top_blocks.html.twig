@@ -25,9 +25,10 @@
             <div class="callout paddings margin-info-xmedium" data-equalizer-watch="top-blocks" style="height: 331px;">
                 <article class="m-h100">
                     <h5 class="callout cabinet small one-icon">Користувач</h5>
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="small-12 column none">
                         <h4 class="large-4 xmedium-2 medium-2 xxsmall-2 small-3 column none">
-                            Имя<br> Фамилия<br> Отчество</h4>
+                                Вошли как: {{ app.user.username }}</h4>
                         <div id="avatar" class="large-4 xmedium-4 medium-3 xxsmall-4 xlsmall-5 ssmall-7 small-12 column none ssmall-text-right small-text-left">
                             <div id="person-photo" class="person-photo">
 
@@ -38,8 +39,24 @@
                 <nav class="clearfix negative-m-t">
                     <a href="" class="button m-t" title="Налаштування">Вхідні документи <b>(1)</b></a>
                     <a href="" class="button m-t" title="Налаштування">Вихідні документи</a>
-                    <a href="" class="button m-t" title="Вихід">Вихід</a>
+                    <a href="/logout" class="button m-t" title="Вихід">Вихід</a>
                 </nav>
+                {% else %}
+                    <form action="{{ path('login') }}" method="post">
+                    <div class="small-12">
+                            <label for="username">Логін:</label>
+                            <input type="text" id="username" name="_username" />
+
+                            <label for="password">Пароль:</label>
+                            <input type="password" id="password" name="_password" />
+                            <input type="hidden" name="_target_path" value="/" />
+                        <nav class="clearfix">
+                            <button class="button m-t" type="submit">Вхід</button>
+                        </nav>
+                    </div>
+
+                    </form>
+                {% endif %}
             </div>
         </section>
     </section>
