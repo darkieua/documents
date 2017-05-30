@@ -28,7 +28,7 @@
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="small-12 column none">
                         <h4 class="large-4 xmedium-2 medium-2 xxsmall-2 small-3 column none">
-                                Вошли как: {{ app.user.username }}</h4>
+                                {{ session.user_surname }}<br>{{ session.user_name }}<br>{{ session.user_patronymic }}</h4>
                         <div id="avatar" class="large-4 xmedium-4 medium-3 xxsmall-4 xlsmall-5 ssmall-7 small-12 column none ssmall-text-right small-text-left">
                             <div id="person-photo" class="person-photo">
 
@@ -42,7 +42,7 @@
                     <a href="/logout" class="button m-t" title="Вихід">Вихід</a>
                 </nav>
                 {% else %}
-                    <form action="{{ path('login') }}" method="post">
+                    <form action="{# {{ path('login') }} #}" method="post">
                     <div class="small-12">
                             <label for="username">Логін:</label>
                             <input type="text" id="username" name="_username" />

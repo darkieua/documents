@@ -50,8 +50,8 @@
 
         <div class="row">
             <div id="top-notify" class="small-12 column text-center min-height-info">
-                <b class="alert">{% block top_alert %}{% endblock %}</b>
-                <b class="primary">{% block top_primary %}{% endblock %}</b>
+                <b class="alert">{% block top_alert %}{% if top_alert is defined %} {{ top_alert }} {% endif %}{% endblock %}</b>
+                <b class="primary">{% block top_primary %}{% if top_primary is defined %} {{ top_primary }} {% endif %}{% endblock %}</b>
                 <b class="primary">{% if debug is defined %} Debug: {{ debug }} {% endif %}</b>
             </div>
         </div>

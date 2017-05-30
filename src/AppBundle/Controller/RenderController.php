@@ -2,6 +2,7 @@
 namespace AppBundle\Controller;
 
 use PhpOffice\PhpWord\TemplateProcessor;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -61,7 +62,7 @@ class RenderController extends Controller
         $this->convertToPDF($this->getParameter('temp_dir') . $generatedDocx . '.docx');
 
         $response = new BinaryFileResponse($this->getParameter('temp_dir') . $generatedDocx . '.pdf');
-        $response->headers->set('Content-Disposition', 'filename="filetodownload.pdf');
+        $response->headers->set('Content-Disposition', 'filename="filetodownload.pdf"');
         return $response;
     }
 

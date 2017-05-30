@@ -11,3 +11,4 @@ twig:
 parameters:
     templates_dir: ./docs/templates/
     temp_dir: ./docs/temp/
+    cabinet_url: http://cabinet.sumdu.edu.ua/
