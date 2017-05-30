@@ -7,7 +7,9 @@ twig:
     automatization_dd: 1
     #ЕД:
     automatization_ed: 2
+    cabinet_url: '%cabinet_url%'
 
 parameters:
     templates_dir: ./docs/templates/
     temp_dir: ./docs/temp/
+    cabinet_url: http://cabinet.sumdu.edu.ua/
