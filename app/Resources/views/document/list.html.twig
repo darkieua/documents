@@ -42,8 +42,11 @@
                                     {% else %}
                                         <a href="/view/{{ document.id }}">{{ document.name }}</a>
                                     {% endif %}
+
+                                    {% if is_granted('ROLE_ADMIN') %}
                                     <i><a href="/edit/{{ document.id }}">[Редагувати]</a></i>
                                     <i><a href="/edit/remove/{{ document.id }}">[Видалити]</a></i>
+                                    {% endif %}
                                 </td>
                                 <td>{{ document.version }}</td>
                                 <td>{{ document.date }}</td>
